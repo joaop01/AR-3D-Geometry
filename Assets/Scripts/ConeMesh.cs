@@ -4,8 +4,8 @@ using UnityEngine;
 
 public static class ConeMeshData
 {
-    public static int nSides = 20;
-    public static float sideLength = 0.1f;
+    public static int nSides = 8;
+    public static float sideLength = 0.2f;
 
     public static Vector3[] vertices = new Vector3[nSides];
 
@@ -17,7 +17,7 @@ public static class ConeMeshData
         {
             float x = sideLength * Mathf.Cos(i * angle);
             float z = sideLength * Mathf.Sin(i * angle);
-            vertices[i] = new Vector3(x, 0.1f, z);
+            vertices[i] = new Vector3(x, -0.05f, z);
         }
     }
 
