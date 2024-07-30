@@ -30,6 +30,11 @@ public class MeshMaker : MonoBehaviour
                 CylinderMesh cylinder = new CylinderMesh();
                 cylinder.MakeCylinder(vertices, triangles);
             break;
+
+			case Polygons.Cone:
+                ConeMesh cone = new ConeMesh();
+                cone.MakeCone(vertices, triangles);
+            break;
         }
 
         UpdateMesh();
