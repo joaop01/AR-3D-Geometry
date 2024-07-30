@@ -5,7 +5,7 @@ using UnityEngine;
 public static class CylinderMeshData
 {
     public static int nSides = 8;
-    public static float sideLength = 0.1f;
+    public static float sideLength = 0.2f;
 
     public static Vector3[] vertices1 = new Vector3[nSides];
     public static Vector3[] vertices2 = new Vector3[nSides];
@@ -18,7 +18,7 @@ public static class CylinderMeshData
         {
             float x = sideLength * Mathf.Cos(i * angle);
             float z = sideLength * Mathf.Sin(i * angle);
-            vertices1[i] = new Vector3(x, 0.1f, z);
+            vertices1[i] = new Vector3(x, -0.05f, z);
         }
 
         for(int i = 0; i < nSides; i++)
