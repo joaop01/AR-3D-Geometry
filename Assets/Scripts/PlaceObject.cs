@@ -10,13 +10,21 @@ public class PlaceObject : MonoBehaviour
     [SerializeField]
     private GameObject prefab;
 
-    private GameObject spawnedObject;
+    public GameObject spawnedObject;
 
     private ARRaycastManager aRRaycastManager;
 
     private List<ARRaycastHit> hits = new List<ARRaycastHit>();
 
     private InputAction m_pressAction;
+
+    public GameObject panel;
+
+    private GameObject show;
+
+    private RectTransform showRectTransform;
+
+    private RectTransform panelRectTransform;
 
     bool isPressed;
 
@@ -41,6 +49,16 @@ public class PlaceObject : MonoBehaviour
         m_pressAction.canceled += _ => isPressed = false;
 
         aRRaycastManager = GetComponent<ARRaycastManager>();
+
+        panel = GameObject.Find("Panel");
+
+        panelRectTransform = panel.GetComponent<RectTransform>();
+
+        panel.gameObject.SetActive(false);
+
+        show = GameObject.Find("ButtonShow");
+
+        showRectTransform = show.GetComponent<RectTransform>();
     }
 
     private void OnEnable() { m_pressAction.Enable(); }
@@ -52,6 +70,10 @@ public class PlaceObject : MonoBehaviour
     void Update()
     {
         if (Pointer.current == null || !isPressed) return;
+
+        if (panel.gameObject.activeSelf && RectTransformUtility.RectangleContainsScreenPoint(panelRectTransform, Pointer.current.position.ReadValue())) return;
+
+        if (show.gameObject.activeSelf && RectTransformUtility.RectangleContainsScreenPoint(showRectTransform, Pointer.current.position.ReadValue())) return;
 
         if (aRRaycastManager.Raycast(Pointer.current.position.ReadValue(), hits, TrackableType.PlaneWithinPolygon))
         {

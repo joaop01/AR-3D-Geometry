@@ -5,9 +5,11 @@ using UnityEngine;
 [RequireComponent (typeof(MeshFilter), typeof(MeshRenderer))]
 public class MeshMaker : MonoBehaviour
 {
-    public enum Polygons {Cylinder, Cone};
+    public enum Polygons {Cone, Cylinder};
 
-    public Polygons polygon = Polygons.Cylinder;
+    public Polygons polygon = Polygons.Cone;
+
+    public int nSides;
 
     Mesh mesh;
 
@@ -19,7 +21,7 @@ public class MeshMaker : MonoBehaviour
         mesh = GetComponent<MeshFilter>().mesh;
     }
 
-    void Start()
+    public void Start()
     {
         vertices = new List<Vector3>();
         triangles = new List<int>();
@@ -27,12 +29,12 @@ public class MeshMaker : MonoBehaviour
         switch(polygon)
         {
             case Polygons.Cylinder:
-                CylinderMesh cylinder = new CylinderMesh();
+                CylinderMesh cylinder = new CylinderMesh(nSides);
                 cylinder.MakeCylinder(vertices, triangles);
             break;
 
 			case Polygons.Cone:
-                ConeMesh cone = new ConeMesh();
+                ConeMesh cone = new ConeMesh(nSides);
                 cone.MakeCone(vertices, triangles);
             break;
         }
