@@ -22,8 +22,8 @@ public class CylinderMesh
         {
             float x = sideLength * Mathf.Cos(i * angle);
             float z = sideLength * Mathf.Sin(i * angle);
-            points1.Insert(i, new Vector3(x, -0.05f, z));
-            points2.Insert(i, new Vector3(x, 0.295f, z));
+            points1.Insert(i, new Vector3(x, 0.0f, z));
+            points2.Insert(i, new Vector3(x, 0.1f, z));
         }
     }
 
@@ -46,7 +46,7 @@ public class CylinderMesh
 
         fv[0] = points2[dir];
         if (dir == nSides - 1) dir = -1;
-        fv[1] = new Vector3(0, 0.3f, 0);
+        fv[1] = new Vector3(0, 0.1f, 0);
         fv[2] = points2[dir + 1];
 
         return fv;

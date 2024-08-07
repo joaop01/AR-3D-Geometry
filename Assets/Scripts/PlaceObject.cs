@@ -81,15 +81,13 @@ public class PlaceObject : MonoBehaviour
 
             if (spawnedObject == null)
             {
-                pose.position.y += 0.1f;
                 spawnedObject = Instantiate(prefab, pose.position, pose.rotation);
             }
 
             else
             {
-                pose.position.y += 0.1f;
                 spawnedObject.transform.position = pose.position;
-                spawnedObject.transform.rotation = pose.rotation;
+                //spawnedObject.transform.rotation = pose.rotation;
             }
         }
     }
