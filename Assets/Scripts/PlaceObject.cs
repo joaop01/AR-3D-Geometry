@@ -40,7 +40,7 @@ public class PlaceObject : MonoBehaviour
         m_pressAction.performed += ctx =>
         {
             if (ctx.control.device is Pointer device)
-            { 
+            {
                 device.position.ReadValue();
                 isPressed = true;
             }

@@ -5,7 +5,8 @@ using TMPro;
 
 public class UIPanelCustomization : MonoBehaviour
 {
-    private Slider rotateSlider;
+    private Slider rotateXSlider;
+    private Slider rotateZSlider;
     public float rotMinValue;
     public float rotMaxValue;
 
@@ -19,6 +20,8 @@ public class UIPanelCustomization : MonoBehaviour
     Button show;
     private GameObject panel;
     private TMP_Dropdown drop;
+	private float lastRotateX;
+	private float lastRotateZ;
 
     void Start()
     {
@@ -34,11 +37,17 @@ public class UIPanelCustomization : MonoBehaviour
     {
         if (panel.gameObject.activeSelf)
         {
-            rotateSlider = GameObject.Find("RotateSlider").GetComponent<Slider>();
-            rotateSlider.minValue = rotMinValue;
-            rotateSlider.maxValue = rotMaxValue;
+            rotateXSlider = GameObject.Find("RotateXSlider").GetComponent<Slider>();
+            rotateXSlider.minValue = rotMinValue;
+            rotateXSlider.maxValue = rotMaxValue;
 
-            rotateSlider.onValueChanged.AddListener(RotateSliderUpdate);
+            rotateXSlider.onValueChanged.AddListener(RotateXSliderUpdate);
+
+            rotateZSlider = GameObject.Find("RotateZSlider").GetComponent<Slider>();
+            rotateZSlider.minValue = rotMinValue;
+            rotateZSlider.maxValue = rotMaxValue;
+
+            rotateZSlider.onValueChanged.AddListener(RotateZSliderUpdate);
 
             sidesSlider = GameObject.Find("SidesSlider").GetComponent<Slider>();
             sidesSlider.value = prefab.GetComponent<MeshMaker>().nSides;
@@ -58,9 +67,20 @@ public class UIPanelCustomization : MonoBehaviour
         }
     }
 
-    void RotateSliderUpdate(float value)
+    void RotateXSliderUpdate(float value)
     {
-        transform.localEulerAngles = new Vector3(transform.rotation.x, value, transform.rotation.z);
+		float rotateValue = value - lastRotateX;
+        Vector3 position = prefab.GetComponent<Renderer>().bounds.center;
+        prefab.transform.RotateAround(position, new Vector3(1,0,0), rotateValue);
+        lastRotateX = value;
+    }
+
+    void RotateZSliderUpdate(float value)
+    {
+		float rotateValue = value - lastRotateZ;
+        Vector3 position = prefab.GetComponent<Renderer>().bounds.center;
+        prefab.transform.RotateAround(position, new Vector3(0,0,1), rotateValue);
+        lastRotateZ = value;
     }
 
     void SidesSliderUpdate(float value)
