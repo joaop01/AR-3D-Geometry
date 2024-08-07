@@ -5,7 +5,7 @@ using UnityEngine;
 public class CylinderMesh
 {
     int nSides;
-    float sideLength = 0.2f;
+    float sideLength = 0.05f;
     List<Vector3> points1 = new List<Vector3>();
     List<Vector3> points2 = new List<Vector3>();
 
