@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6319305132829203597}
   - component: {fileID: 9180495793509624416}
   - component: {fileID: 7538989822507648230}
+  - component: {fileID: -9157414481335134745}
   m_Layer: 0
   m_Name: MeshPrefab
   m_TagString: Untagged
@@ -97,3 +98,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   polygon: 1
+  nSides: 5
+--- !u!114 &-9157414481335134745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 849477162397728364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2889655e1cd44ff1a36f3915af34287, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotMinValue: 0
+  rotMaxValue: 360
+  sidesMinValue: 1
+  sidesMaxValue: 10

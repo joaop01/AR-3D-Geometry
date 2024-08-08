@@ -2,48 +2,48 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class ConeMeshData
+public class ConeMesh
 {
-    public static int nSides = 8;
-    public static float sideLength = 0.2f;
+    int nSides;
+    float sideLength = 0.2f;
+    List<Vector3> points = new List<Vector3>();
 
-    public static Vector3[] vertices = new Vector3[nSides];
+    public ConeMesh(int nSides)
+    {
+        this.nSides = nSides; 
+    }
 
-    public static void setVertices()
+    void setVertices()
     {
         float angle = 2 * Mathf.PI / nSides;
 
-        for(int i = nSides-1; i >= 0; i--)
+        for (int i = 0; i < nSides; i++)
         {
             float x = sideLength * Mathf.Cos(i * angle);
             float z = sideLength * Mathf.Sin(i * angle);
-            vertices[i] = new Vector3(x, -0.05f, z);
+            points.Insert(i, new Vector3(x, -0.05f, z));
         }
     }
 
-    public static Vector3[] faceVertices(int dir)
+    Vector3[] faceVertices(int dir)
     {
-        setVertices();
         Vector3[] fv = new Vector3[3];
 
-        fv[0] = vertices[dir];
+        fv[0] = points[dir];
         fv[1] = new Vector3(0, 0.3f, 0);
-        if(dir == nSides-1) dir = -1;
-        fv[2] = vertices[dir+1];
+        if (dir == nSides - 1) dir = -1;
+        fv[2] = points[dir + 1];
 
         return fv;
     }
-}
-
-public class ConeMesh
-{
-    int nSides = ConeMeshData.nSides;
 
     public void MakeCone(List<Vector3> vertices, List<int> triangles)
     {
+        this.setVertices();
+
         for(int i = 0; i < nSides; i++)
         {
-            vertices.AddRange(ConeMeshData.faceVertices(i));
+            vertices.AddRange(this.faceVertices(i));
 
             int vCount = vertices.Count;
 

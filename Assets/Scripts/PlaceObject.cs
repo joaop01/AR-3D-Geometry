@@ -10,13 +10,21 @@ public class PlaceObject : MonoBehaviour
     [SerializeField]
     private GameObject prefab;
 
-    private GameObject spawnedObject;
+    public GameObject spawnedObject;
 
     private ARRaycastManager aRRaycastManager;
 
     private List<ARRaycastHit> hits = new List<ARRaycastHit>();
 
     private InputAction m_pressAction;
+
+    public GameObject panel;
+
+    private GameObject show;
+
+    private RectTransform showRectTransform;
+
+    private RectTransform panelRectTransform;
 
     bool isPressed;
 
@@ -32,7 +40,7 @@ public class PlaceObject : MonoBehaviour
         m_pressAction.performed += ctx =>
         {
             if (ctx.control.device is Pointer device)
-            { 
+            {
                 device.position.ReadValue();
                 isPressed = true;
             }
@@ -41,6 +49,16 @@ public class PlaceObject : MonoBehaviour
         m_pressAction.canceled += _ => isPressed = false;
 
         aRRaycastManager = GetComponent<ARRaycastManager>();
+
+        panel = GameObject.Find("Panel");
+
+        panelRectTransform = panel.GetComponent<RectTransform>();
+
+        panel.gameObject.SetActive(false);
+
+        show = GameObject.Find("ButtonShow");
+
+        showRectTransform = show.GetComponent<RectTransform>();
     }
 
     private void OnEnable() { m_pressAction.Enable(); }
@@ -53,21 +71,23 @@ public class PlaceObject : MonoBehaviour
     {
         if (Pointer.current == null || !isPressed) return;
 
+        if (panel.gameObject.activeSelf && RectTransformUtility.RectangleContainsScreenPoint(panelRectTransform, Pointer.current.position.ReadValue())) return;
+
+        if (show.gameObject.activeSelf && RectTransformUtility.RectangleContainsScreenPoint(showRectTransform, Pointer.current.position.ReadValue())) return;
+
         if (aRRaycastManager.Raycast(Pointer.current.position.ReadValue(), hits, TrackableType.PlaneWithinPolygon))
         {
             Pose pose = hits[0].pose;
 
             if (spawnedObject == null)
             {
-                pose.position.y += 0.1f;
                 spawnedObject = Instantiate(prefab, pose.position, pose.rotation);
             }
 
             else
-            {
-                pose.position.y += 0.1f;
-                spawnedObject.transform.position = pose.position;
-                spawnedObject.transform.rotation = pose.rotation;
+			{
+				spawnedObject.transform.position = pose.position;
+                spawnedObject.transform.Translate(new Vector3(0, spawnedObject.GetComponent<Renderer>().bounds.min[1]*(-1), 0), Space.World);
             }
         }
     }
