@@ -85,9 +85,9 @@ public class PlaceObject : MonoBehaviour
             }
 
             else
-            {
-                spawnedObject.transform.position = pose.position;
-                //spawnedObject.transform.rotation = pose.rotation;
+			{
+				spawnedObject.transform.position = pose.position;
+                spawnedObject.transform.Translate(new Vector3(0, spawnedObject.GetComponent<Renderer>().bounds.min[1]*(-1), 0), Space.World);
             }
         }
     }
