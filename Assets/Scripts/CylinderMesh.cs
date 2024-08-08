@@ -52,6 +52,18 @@ public class CylinderMesh
         return fv;
     }
 
+    Vector3[] bottonVertices(int dir)
+    {
+        Vector3[] fv = new Vector3[3];
+
+        fv[2] = points1[dir];
+        if (dir == nSides - 1) dir = -1;
+        fv[1] = new Vector3(0, 0.0f, 0);
+        fv[0] = points1[dir + 1];
+
+        return fv;
+    }
+
     public void MakeCylinder(List<Vector3> vertices, List<int> triangles)
     {
         this.setVertices();
@@ -73,6 +85,17 @@ public class CylinderMesh
         for(int i = 0; i < nSides; i++)
         {
             vertices.AddRange(this.topVertices(i));
+
+            int vCount = vertices.Count;
+
+            triangles.Add(vCount - 3);
+            triangles.Add(vCount - 2);
+            triangles.Add(vCount - 1);
+        }
+
+        for(int i = 0; i < nSides; i++)
+        {
+            vertices.AddRange(this.bottonVertices(i));
 
             int vCount = vertices.Count;
 
