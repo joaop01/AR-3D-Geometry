@@ -62,8 +62,9 @@ public class UIPanelCustomization : MonoBehaviour
             hide = GameObject.Find("ButtonHide").GetComponent<Button>();
             hide.onClick.AddListener(HideUpdate);
 
-            //drop = GameObject.Find("PolyDropdown").GetComponent<TMP_Dropdown>();
-            //drop.onValueChanged.AddListener(delegate { DropdownUpdate(drop); });
+            drop = GameObject.Find("PolyDropdown").GetComponent<TMP_Dropdown>();
+			drop.value = prefab.GetComponent<MeshMaker>().polygon;
+            drop.onValueChanged.AddListener(delegate { DropdownUpdate(drop); });
         }
     }
 
@@ -105,7 +106,7 @@ public class UIPanelCustomization : MonoBehaviour
 
     void DropdownUpdate(TMP_Dropdown change)
     {
-        //prefab.GetComponent<MeshMaker>().polygon = prefab.GetComponent<MeshMaker>().Polygons[change.value];
-        //prefab.GetComponent<MeshMaker>().Start();
+        prefab.GetComponent<MeshMaker>().polygon = change.value;
+        prefab.GetComponent<MeshMaker>().Start();
     }
 }

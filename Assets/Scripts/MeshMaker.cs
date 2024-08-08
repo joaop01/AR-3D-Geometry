@@ -7,7 +7,7 @@ public class MeshMaker : MonoBehaviour
 {
     public enum Polygons {Cone, Cylinder};
 
-    public Polygons polygon = Polygons.Cone;
+    public int polygon = (int) Polygons.Cone;
 
     public int nSides;
 
@@ -28,12 +28,12 @@ public class MeshMaker : MonoBehaviour
 
         switch(polygon)
         {
-            case Polygons.Cylinder:
+            case (int) Polygons.Cylinder:
                 CylinderMesh cylinder = new CylinderMesh(nSides);
                 cylinder.MakeCylinder(vertices, triangles);
             break;
 
-			case Polygons.Cone:
+			case (int) Polygons.Cone:
                 ConeMesh cone = new ConeMesh(nSides);
                 cone.MakeCone(vertices, triangles);
             break;
