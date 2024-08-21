@@ -99,6 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   polygon: 1
   nSides: 5
+  height: 0.05
 --- !u!114 &-9157414481335134745
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,5 +114,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotMinValue: 0
   rotMaxValue: 360
-  sidesMinValue: 1
-  sidesMaxValue: 10
+  heightMinValue: 0.05
+  heightMaxValue: 0.3

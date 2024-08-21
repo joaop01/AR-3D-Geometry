@@ -7,10 +7,10 @@ public class UIPanelCustomization : MonoBehaviour
 {
     private Slider rotateXSlider;
     private Slider rotateZSlider;
-    
+
     public float rotMinValue;
     public float rotMaxValue;
-    
+
     private Slider heightSlider;
     public float heightMinValue;
     public float heightMaxValue;
@@ -53,11 +53,11 @@ public class UIPanelCustomization : MonoBehaviour
             rotateZSlider.maxValue = rotMaxValue;
 
             rotateZSlider.onValueChanged.AddListener(RotateZSliderUpdate);
-            
+
             heightSlider = GameObject.Find("SliderHeight").GetComponent<Slider>();
             heightSlider.minValue = heightMinValue;
             heightSlider.maxValue = heightMaxValue;
-            
+
             heightSlider.onValueChanged.AddListener(HeightSliderUpdate);
 
             sidesSlider = GameObject.Find("SidesSlider").GetComponent<Slider>();
@@ -120,7 +120,7 @@ public class UIPanelCustomization : MonoBehaviour
         prefab.GetComponent<MeshMaker>().polygon = change.value;
         prefab.GetComponent<MeshMaker>().Start();
     }
-    
+
     void HeightSliderUpdate(float value){
         prefab.GetComponent<MeshMaker>().height = value;
         prefab.GetComponent<MeshMaker>().Start();
