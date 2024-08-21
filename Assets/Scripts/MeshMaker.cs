@@ -10,6 +10,8 @@ public class MeshMaker : MonoBehaviour
     public int polygon = (int) Polygons.Cone;
 
     public int nSides;
+    
+    public float height;
 
     Mesh mesh;
 
@@ -29,12 +31,12 @@ public class MeshMaker : MonoBehaviour
         switch(polygon)
         {
             case (int) Polygons.Cylinder:
-                CylinderMesh cylinder = new CylinderMesh(nSides);
+                CylinderMesh cylinder = new CylinderMesh(nSides, height);
                 cylinder.MakeCylinder(vertices, triangles);
             break;
 
 			case (int) Polygons.Cone:
-                ConeMesh cone = new ConeMesh(nSides);
+                ConeMesh cone = new ConeMesh(nSides, height);
                 cone.MakeCone(vertices, triangles);
             break;
         }

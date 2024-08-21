@@ -5,12 +5,14 @@ using UnityEngine;
 public class ConeMesh
 {
     int nSides;
+    float height;
     float sideLength = 0.05f;
     List<Vector3> points = new List<Vector3>();
 
-    public ConeMesh(int nSides)
+    public ConeMesh(int nSides, float height)
     {
         this.nSides = nSides;
+        this.height = height;
     }
 
     void setVertices()
@@ -30,7 +32,7 @@ public class ConeMesh
         Vector3[] fv = new Vector3[3];
 
         fv[0] = points[dir];
-        fv[1] = new Vector3(0, 0.1f, 0);
+        fv[1] = new Vector3(0, height, 0);
         if (dir == nSides - 1) dir = -1;
         fv[2] = points[dir + 1];
 
