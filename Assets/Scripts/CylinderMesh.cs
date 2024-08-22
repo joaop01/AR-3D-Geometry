@@ -5,13 +5,15 @@ using UnityEngine;
 public class CylinderMesh
 {
     int nSides;
+    float height;
     float sideLength = 0.05f;
     List<Vector3> points1 = new List<Vector3>();
     List<Vector3> points2 = new List<Vector3>();
 
-    public CylinderMesh(int nSides)
+    public CylinderMesh(int nSides, float height)
     {
         this.nSides = nSides;
+        this.height = height;
     }
 
     void setVertices()
@@ -23,7 +25,7 @@ public class CylinderMesh
             float x = sideLength * Mathf.Cos(i * angle);
             float z = sideLength * Mathf.Sin(i * angle);
             points1.Insert(i, new Vector3(x, 0.0f, z));
-            points2.Insert(i, new Vector3(x, 0.1f, z));
+            points2.Insert(i, new Vector3(x, height, z));
         }
     }
 
@@ -46,7 +48,7 @@ public class CylinderMesh
 
         fv[0] = points2[dir];
         if (dir == nSides - 1) dir = -1;
-        fv[1] = new Vector3(0, 0.1f, 0);
+        fv[1] = new Vector3(0, height, 0);
         fv[2] = points2[dir + 1];
 
         return fv;
