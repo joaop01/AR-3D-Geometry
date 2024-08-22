@@ -26,6 +26,9 @@
 # Visual Studio cache directory
 .vs/
 
+# Idea cache directory
+.idea/
+
 # Gradle cache directory
 .gradle/
 
@@ -71,3 +74,22 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
+/[Aa]ssets/[Ss]treamingAssets
+/[Aa]ssets/[Ss]treamingAssets.meta
+
+/[Aa]ssets/Editor Default Resources.meta
+/[Aa]ssets/Editor Default Resources/*
+/[Aa]ssets/ExternalDependencyManager.meta
+/[Aa]ssets/ExternalDependencyManager/*
+/[Aa]ssets/Firebase.meta
+/[Aa]ssets/Firebase/*
+/[Aa]ssets/Gizmos.meta
+/[Aa]ssets/Gizmos/*
+/[Aa]ssets/GoogleSignIn.meta
+/[Aa]ssets/GoogleSignIn/*
+/[Aa]ssets/Parse.meta
+/[Aa]ssets/Parse/*
+/[Aa]ssets/Plugins.meta
+/[Aa]ssets/Plugins/*
+/[Aa]ssets/i5 Toolkit for Unity.meta
+/[Aa]ssets/i5 Toolkit for Unity/*
