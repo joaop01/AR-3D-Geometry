@@ -16,11 +16,11 @@ public class UIprofessor : MonoBehaviour
 	private static int sidesMinValue = 3;
 	private static int sidesMaxValue = 20;
 
-	private static float heightMinValue;
-	private static float heightMaxValue;
+	public static float heightMinValue;
+	public static float heightMaxValue;
 
-	private static float widthMinValue;
-	private static float widthMaxValue;
+	public static float widthMinValue;
+	public static float widthMaxValue;
 
 	// Objetos para input
 	private Slider heightSlider;
@@ -84,17 +84,25 @@ public class UIprofessor : MonoBehaviour
 
 	void HeightSliderUpdate(float value){
 
+		height = value;
+
 	}
 
 	void widthSliderUpdate(float value){
 
-	}
-
-	void sideSliderUpdate(int value){
+		width = value;
 
 	}
 
-	void typeSelector(TMP_Dropdown change){
+	void sideSliderUpdate(float value){
+
+		sides = (int)value;
+
+	}
+
+	void typeUpdate(TMP_Dropdown change){
+
+		polygon = change.value;
 	
 	}
 }
