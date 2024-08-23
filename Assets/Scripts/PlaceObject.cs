@@ -20,9 +20,13 @@ public class PlaceObject : MonoBehaviour
 
     public GameObject panel;
 
-    private GameObject show;
+    private GameObject buttonCustom;
 
-    private RectTransform showRectTransform;
+    private GameObject buttonTransform;
+
+    private RectTransform buttonCustomRectTransform;
+
+    private RectTransform buttonTransformRectTransform;
 
     private RectTransform panelRectTransform;
 
@@ -55,10 +59,16 @@ public class PlaceObject : MonoBehaviour
         panelRectTransform = panel.GetComponent<RectTransform>();
 
         panel.gameObject.SetActive(false);
+        panel.transform.GetChild(0).gameObject.SetActive(false);
+        panel.transform.GetChild(1).gameObject.SetActive(false);
 
-        show = GameObject.Find("ButtonShow");
+        buttonCustom = GameObject.Find("ButtonCustom");
 
-        showRectTransform = show.GetComponent<RectTransform>();
+        buttonTransform = GameObject.Find("ButtonTransform");
+
+        buttonCustomRectTransform = buttonCustom.GetComponent<RectTransform>();
+
+        buttonTransformRectTransform = buttonTransform.GetComponent<RectTransform>();
     }
 
     private void OnEnable() { m_pressAction.Enable(); }
@@ -73,7 +83,9 @@ public class PlaceObject : MonoBehaviour
 
         if (panel.gameObject.activeSelf && RectTransformUtility.RectangleContainsScreenPoint(panelRectTransform, Pointer.current.position.ReadValue())) return;
 
-        if (show.gameObject.activeSelf && RectTransformUtility.RectangleContainsScreenPoint(showRectTransform, Pointer.current.position.ReadValue())) return;
+        if (buttonCustom.gameObject.activeSelf && RectTransformUtility.RectangleContainsScreenPoint(buttonCustomRectTransform, Pointer.current.position.ReadValue())) return;
+
+        if (buttonTransform.gameObject.activeSelf && RectTransformUtility.RectangleContainsScreenPoint(buttonTransformRectTransform, Pointer.current.position.ReadValue())) return;
 
         if (aRRaycastManager.Raycast(Pointer.current.position.ReadValue(), hits, TrackableType.PlaneWithinPolygon))
         {
