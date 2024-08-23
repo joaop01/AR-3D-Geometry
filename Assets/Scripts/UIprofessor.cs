@@ -1,30 +1,31 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
-public class UIprofessot : MonoBehaviour
+public class UIprofessor : MonoBehaviour
 {
 
     public enum Polygons {Cone, Cylinder};
 	public int polygon;
 
-    public float height;
-	public float width;
+    public double height;
+	public double width;
     public int sides;
     
-	static int sidesMinValue = 3;
-	static int sidesMaxValue = 20;
+	private static int sidesMinValue = 3;
+	private static int sidesMaxValue = 20;
 
-	static float heightMinValue = 0.05;
-	static float heightMaxValue = 0.3;
+	private static float heightMinValue;
+	private static float heightMaxValue;
 
-	static float widthMinValue = 0.05;
-	static float widthMaxValue = 0.3;
+	private static float widthMinValue;
+	private static float widthMaxValue;
 
 	// Objetos para input
-	private GameObject eightSlider;
-	private GameObject widthSlider;
-	private GameObject sideSlider;
+	private Slider heightSlider;
+	private Slider widthSlider;
+	private Slider sideSlider;
 
 	private TMP_Dropdown typeSelector;
 
@@ -59,7 +60,7 @@ public class UIprofessot : MonoBehaviour
 
         sideSlider = GameObject.Find("SliderSide").GetComponent<Slider>();
         sideSlider.minValue = sidesMinValue;
-        sideSlider.maxValue = sidestMaxValue;
+        sideSlider.maxValue = sidesMaxValue;
 
         sideSlider.onValueChanged.AddListener(sideSliderUpdate);
 
@@ -70,14 +71,30 @@ public class UIprofessot : MonoBehaviour
 
 		//output objetos de output
 		heightText = GameObject.Find("textHeight").GetComponent<TextMeshProUGUI>();
-		tempVar = (int)(height*100)
-		heightText.text = tempVar.toString() + " cm";
+		tempVar = (int)(height*100);
+		heightText.text = tempVar.ToString();
 
 		widthText = GameObject.Find("textWidth").GetComponent<TextMeshProUGUI>();
-		tempVar = (int)(width*100)
-		widthText.text = tempVar.toString() + " cm";
+		tempVar = (int)(width*100);
+		widthText.text = tempVar.ToString();
 
 		sideText = GameObject.Find("textSide").GetComponent<TextMeshProUGUI>();
-		sideText.text = sides.toString();
+		sideText.text = sides.ToString();
     }
+
+	void HeightSliderUpdate(float value){
+
+	}
+
+	void widthSliderUpdate(float value){
+
+	}
+
+	void sideSliderUpdate(int value){
+
+	}
+
+	void typeSelector(TMP_Dropdown change){
+	
+	}
 }
