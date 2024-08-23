@@ -42,6 +42,7 @@ public class UIprofessot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+		int tempVar;
         
 		// objetos de input
         heightSlider = GameObject.Find("SliderHeight").GetComponent<Slider>();
@@ -69,10 +70,12 @@ public class UIprofessot : MonoBehaviour
 
 		//output objetos de output
 		heightText = GameObject.Find("textHeight").GetComponent<TextMeshProUGUI>();
-		heightText.text = sides.toString();
+		tempVar = (int)(height*100)
+		heightText.text = tempVar.toString() + " cm";
 
 		widthText = GameObject.Find("textWidth").GetComponent<TextMeshProUGUI>();
-		widthText.text = sides.toString();
+		tempVar = (int)(width*100)
+		widthText.text = tempVar.toString() + " cm";
 
 		sideText = GameObject.Find("textSide").GetComponent<TextMeshProUGUI>();
 		sideText.text = sides.toString();
