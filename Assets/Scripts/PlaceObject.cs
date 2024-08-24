@@ -24,9 +24,13 @@ public class PlaceObject : MonoBehaviour
 
     private GameObject buttonTransform;
 
+    private GameObject buttonColor;
+
     private RectTransform buttonCustomRectTransform;
 
     private RectTransform buttonTransformRectTransform;
+
+    private RectTransform buttonColorRectTransform;
 
     private RectTransform panelRectTransform;
 
@@ -61,14 +65,19 @@ public class PlaceObject : MonoBehaviour
         panel.gameObject.SetActive(false);
         panel.transform.GetChild(0).gameObject.SetActive(false);
         panel.transform.GetChild(1).gameObject.SetActive(false);
+        panel.transform.GetChild(2).gameObject.SetActive(false);
 
         buttonCustom = GameObject.Find("ButtonCustom");
 
         buttonTransform = GameObject.Find("ButtonTransform");
 
+        buttonColor = GameObject.Find("ButtonColor");
+
         buttonCustomRectTransform = buttonCustom.GetComponent<RectTransform>();
 
         buttonTransformRectTransform = buttonTransform.GetComponent<RectTransform>();
+
+        buttonColorRectTransform = buttonColor.GetComponent<RectTransform>();
     }
 
     private void OnEnable() { m_pressAction.Enable(); }
@@ -86,6 +95,8 @@ public class PlaceObject : MonoBehaviour
         if (buttonCustom.gameObject.activeSelf && RectTransformUtility.RectangleContainsScreenPoint(buttonCustomRectTransform, Pointer.current.position.ReadValue())) return;
 
         if (buttonTransform.gameObject.activeSelf && RectTransformUtility.RectangleContainsScreenPoint(buttonTransformRectTransform, Pointer.current.position.ReadValue())) return;
+
+        if (buttonColor.gameObject.activeSelf && RectTransformUtility.RectangleContainsScreenPoint(buttonColorRectTransform, Pointer.current.position.ReadValue())) return;
 
         if (aRRaycastManager.Raycast(Pointer.current.position.ReadValue(), hits, TrackableType.PlaneWithinPolygon))
         {

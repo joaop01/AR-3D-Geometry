@@ -6,13 +6,14 @@ public class ConeMesh
 {
     int nSides;
     float height;
-    float sideLength = 0.05f;
+    float sideLength;
     List<Vector3> points = new List<Vector3>();
 
-    public ConeMesh(int nSides, float height)
+    public ConeMesh(int nSides, float height, float sideLength)
     {
         this.nSides = nSides;
         this.height = height;
+        this.sideLength = sideLength;
     }
 
     void setVertices()

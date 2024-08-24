@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2926557707537190794, guid: f396e3429a4864fc2ad497cb3ce5fe2c, type: 3}
+  - {fileID: 2100000, guid: 6073afd17ee5cf353956fa5473f157f0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -98,8 +98,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   polygon: 1
-  nSides: 5
+  nSides: 3
   height: 0.05
+  radius: 0.05
 --- !u!114 &-9157414481335134745
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,5 +115,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotMinValue: 0
   rotMaxValue: 360
+  translationMinValue: 0
+  translationMaxValue: 1
+  scaleMinValue: 1
+  scaleMaxValue: 5
+  sidesMinValue: 3
+  sidesMaxValue: 10
   heightMinValue: 0.05
   heightMaxValue: 0.3
+  radiusMinValue: 0.05
+  radiusMaxValue: 0.3
+  transparencyMinValue: 0
+  transparencyMaxValue: 1
+  rMinValue: 0
+  rMaxValue: 1
+  opaque: {fileID: 2100000, guid: 6073afd17ee5cf353956fa5473f157f0, type: 2}
+  transparent: {fileID: 2100000, guid: de7e8d2edf1c07d5785d3ed1d313f816, type: 2}
