@@ -5,18 +5,21 @@ using UnityEngine;
 [RequireComponent (typeof(MeshFilter), typeof(MeshRenderer))]
 public class MeshMaker : MonoBehaviour
 {
-    public enum Polygons {Cone, Cylinder};
+    public enum Polygons {Cubo, Ortoedro, Esfera, Cone, Cilindro, Piramide, Prisma};
 
-    public int polygon = (int) Polygons.Cone;
+    public int polygon;
 
     public int nSides;
-    
+
     public float height;
 
-    Mesh mesh;
+    public float radius;
 
-    List<Vector3> vertices;
+    public List<Vector3> vertices;
+
     List<int> triangles;
+
+    private Mesh mesh;
 
     void Awake()
     {
@@ -28,16 +31,46 @@ public class MeshMaker : MonoBehaviour
         vertices = new List<Vector3>();
         triangles = new List<int>();
 
+		CylinderMesh cylinder;
+		ConeMesh cone;
+
         switch(polygon)
         {
-            case (int) Polygons.Cylinder:
-                CylinderMesh cylinder = new CylinderMesh(nSides, height);
+            case (int) Polygons.Cubo:
+                cylinder = new CylinderMesh(4, radius, radius);
                 cylinder.MakeCylinder(vertices, triangles);
             break;
 
+			case (int) Polygons.Ortoedro:
+                cylinder = new CylinderMesh(4, height, radius);
+                cylinder.MakeCylinder(vertices, triangles);
+            break;
+
+			case (int) Polygons.Esfera:
+				GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+				vertices.AddRange(sphere.GetComponent<MeshFilter>().mesh.vertices);
+				triangles.AddRange(sphere.GetComponent<MeshFilter>().mesh.triangles);
+				Destroy(sphere);
+            break;
+
 			case (int) Polygons.Cone:
-                ConeMesh cone = new ConeMesh(nSides, height);
+                cone = new ConeMesh(50, height, radius);
                 cone.MakeCone(vertices, triangles);
+            break;
+
+			case (int) Polygons.Cilindro:
+                cylinder = new CylinderMesh(50, height, radius);
+                cylinder.MakeCylinder(vertices, triangles);
+            break;
+
+			case (int) Polygons.Piramide:
+                cone = new ConeMesh(nSides, height, radius);
+                cone.MakeCone(vertices, triangles);
+            break;
+
+			case (int) Polygons.Prisma:
+                cylinder = new CylinderMesh(nSides, height, radius);
+                cylinder.MakeCylinder(vertices, triangles);
             break;
         }
 

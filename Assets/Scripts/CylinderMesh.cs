@@ -6,14 +6,15 @@ public class CylinderMesh
 {
     int nSides;
     float height;
-    float sideLength = 0.05f;
+    float sideLength;
     List<Vector3> points1 = new List<Vector3>();
     List<Vector3> points2 = new List<Vector3>();
 
-    public CylinderMesh(int nSides, float height)
+    public CylinderMesh(int nSides, float height, float sideLength)
     {
         this.nSides = nSides;
         this.height = height;
+        this.sideLength = sideLength/Mathf.Sqrt(2);
     }
 
     void setVertices()
