@@ -5,23 +5,24 @@ using TMPro;
 
 public class UIPanelCustomization : MonoBehaviour
 {
+    public GameObject prefabLine;
+    public GameObject spawnedLine;
+
 	private float lastRotationX;
 	private float lastRotationZ;
 
     private Slider rotationXSlider;
+    private Slider rotationYSlider;
     private Slider rotationZSlider;
 	private Slider translationYSlider;
-	private Slider scaleSlider;
     public float rotMinValue;
     public float rotMaxValue;
     public float translationMinValue;
     public float translationMaxValue;
-    public float scaleMinValue;
-    public float scaleMaxValue;
     private TMP_Text textRotationX;
+    private TMP_Text textRotationY;
     private TMP_Text textRotationZ;
     private TMP_Text textTranslationY;
-    private TMP_Text textScale;
 
     private Slider sidesSlider;
     private Slider heightSlider;
@@ -56,6 +57,7 @@ public class UIPanelCustomization : MonoBehaviour
     private Button buttonTransform;
     private Button buttonCustom;
 	private Button buttonColor;
+	private Button buttonLine;
 
     private GameObject prefab;
     private GameObject panel;
@@ -76,6 +78,9 @@ public class UIPanelCustomization : MonoBehaviour
 
         buttonColor = GameObject.Find("ButtonColor").GetComponent<Button>();
         buttonColor.onClick.AddListener(ButtonColorUpdate);
+
+        buttonLine = GameObject.Find("ButtonLine").GetComponent<Button>();
+        buttonLine.onClick.AddListener(ButtonLineUpdate);
     }
 
     void PanelUpdate()
@@ -93,6 +98,13 @@ public class UIPanelCustomization : MonoBehaviour
 				textRotationX = GameObject.Find("TextRotationXValue").GetComponent<TextMeshProUGUI>();
 				textRotationX.text = (string)rotationXSlider.value.ToString()+" º";
 
+				rotationYSlider = GameObject.Find("RotationYSlider").GetComponent<Slider>();
+				rotationYSlider.minValue = rotMinValue;
+				rotationYSlider.maxValue = rotMaxValue;
+				rotationYSlider.onValueChanged.AddListener(RotationYSliderUpdate);
+				textRotationY = GameObject.Find("TextRotationYValue").GetComponent<TextMeshProUGUI>();
+				textRotationY.text = (string)rotationYSlider.value.ToString()+" º";
+
 				rotationZSlider = GameObject.Find("RotationZSlider").GetComponent<Slider>();
 				rotationZSlider.minValue = rotMinValue;
 				rotationZSlider.maxValue = rotMaxValue;
@@ -105,14 +117,9 @@ public class UIPanelCustomization : MonoBehaviour
 				translationYSlider.maxValue = translationMaxValue;
 				translationYSlider.onValueChanged.AddListener(TranslationYSliderUpdate);
 				textTranslationY = GameObject.Find("TextTranslationYValue").GetComponent<TextMeshProUGUI>();
-				textTranslationY.text = (string)translationYSlider.value.ToString()+" cm";
+				int intHeight = (int)(100*translationYSlider.value);
+				textTranslationY.text = (string)intHeight.ToString("n2")+" cm";
 
-				scaleSlider = GameObject.Find("ScaleSlider").GetComponent<Slider>();
-				scaleSlider.minValue = scaleMinValue;
-				scaleSlider.maxValue = scaleMaxValue;
-				scaleSlider.onValueChanged.AddListener(ScaleSliderUpdate);
-				textScale = GameObject.Find("TextScaleValue").GetComponent<TextMeshProUGUI>();
-				textScale.text = (string)scaleSlider.value.ToString();
 			}
 
 			if (panel.transform.GetChild(1).gameObject.activeSelf)
@@ -137,7 +144,7 @@ public class UIPanelCustomization : MonoBehaviour
 					heightSlider.onValueChanged.AddListener(HeightSliderUpdate);
 					textHeight = GameObject.Find("TextHeightValue").GetComponent<TextMeshProUGUI>();
 					int intHeight = (int)(100*prefab.GetComponent<MeshMaker>().height);
-					textHeight.text = (string)intHeight.ToString()+" cm";
+					textHeight.text = (string)intHeight.ToString("n2")+" cm";
 				}
 
 				radiusSlider = GameObject.Find("RadiusSlider").GetComponent<Slider>();
@@ -147,7 +154,7 @@ public class UIPanelCustomization : MonoBehaviour
 				radiusSlider.onValueChanged.AddListener(RadiusSliderUpdate);
 				textRadius = GameObject.Find("TextRadiusValue").GetComponent<TextMeshProUGUI>();
 				int intRadius = (int)(100*prefab.GetComponent<MeshMaker>().radius);
-				textRadius.text = (string)intRadius.ToString()+" cm";
+				textRadius.text = (string)intRadius.ToString("n2")+" cm";
 
 				drop = GameObject.Find("PolyDropdown").GetComponent<TMP_Dropdown>();
 				drop.value = prefab.GetComponent<MeshMaker>().polygon;
@@ -161,12 +168,12 @@ public class UIPanelCustomization : MonoBehaviour
 				Color cor = rend.material.color;
 
 				transparencySlider = GameObject.Find("TransparencySlider").GetComponent<Slider>();
-				transparencySlider.value = 1;
+				transparencySlider.value = cor.a;
 				transparencySlider.minValue = transparencyMinValue;
 				transparencySlider.maxValue = transparencyMaxValue;
 				transparencySlider.onValueChanged.AddListener(TransparencySliderUpdate);
 				textTransparency = GameObject.Find("TextTransparencyValue").GetComponent<TextMeshProUGUI>();
-				textTransparency.text = (string)transparencySlider.value.ToString();
+				textTransparency.text = (string)transparencySlider.value.ToString("n2");
 
 				rSlider = GameObject.Find("RSlider").GetComponent<Slider>();
 				rSlider.value = cor.r;
@@ -174,7 +181,7 @@ public class UIPanelCustomization : MonoBehaviour
 				rSlider.maxValue = rMaxValue;
 				rSlider.onValueChanged.AddListener(RSliderUpdate);
 				textR = GameObject.Find("TextRValue").GetComponent<TextMeshProUGUI>();
-				textR.text = (string)rSlider.value.ToString();
+				textR.text = (string)rSlider.value.ToString("n2");
 
 				gSlider = GameObject.Find("GSlider").GetComponent<Slider>();
 				gSlider.value = cor.g;
@@ -182,7 +189,7 @@ public class UIPanelCustomization : MonoBehaviour
 				gSlider.maxValue = rMaxValue;
 				gSlider.onValueChanged.AddListener(GSliderUpdate);
 				textG = GameObject.Find("TextGValue").GetComponent<TextMeshProUGUI>();
-				textG.text = (string)gSlider.value.ToString();
+				textG.text = (string)gSlider.value.ToString("n2");
 
 				bSlider = GameObject.Find("BSlider").GetComponent<Slider>();
 				bSlider.value = cor.b;
@@ -190,7 +197,7 @@ public class UIPanelCustomization : MonoBehaviour
 				bSlider.maxValue = rMaxValue;
 				bSlider.onValueChanged.AddListener(BSliderUpdate);
 				textB = GameObject.Find("TextBValue").GetComponent<TextMeshProUGUI>();
-				textB.text = (string)bSlider.value.ToString();
+				textB.text = (string)bSlider.value.ToString("n2");
 			}
 
             hide = GameObject.Find("ButtonHide").GetComponent<Button>();
@@ -207,6 +214,12 @@ public class UIPanelCustomization : MonoBehaviour
 		textRotationX.text = (string)value.ToString()+" º";
     }
 
+    void RotationYSliderUpdate(float value)
+	{
+		transform.localEulerAngles = new Vector3(transform.rotation.x, value, transform.rotation.z);
+		textRotationY.text = (string)value.ToString()+" º";
+	}
+
     void RotationZSliderUpdate(float value)
     {
 		float rotationValue = value - lastRotationZ;
@@ -219,10 +232,8 @@ public class UIPanelCustomization : MonoBehaviour
 	void TranslationYSliderUpdate(float value)
 	{
         prefab.transform.position = new Vector3(prefab.transform.position.x, value, prefab.transform.position.z);
-	}
-
-	void ScaleSliderUpdate(float value)
-	{
+		int intHeight = (int)(100*value);
+		textTranslationY.text = (string)intHeight.ToString("n2")+" cm";
 	}
 
     void SidesSliderUpdate(float value)
@@ -244,7 +255,7 @@ public class UIPanelCustomization : MonoBehaviour
 	{
 		int poly = prefab.GetComponent<MeshMaker>().polygon;
 
-		if(poly == 0 || poly == 2)
+		if(poly == 2)
 		{
 			prefab.transform.localScale = new Vector3(value, value, value);
 		}
@@ -371,6 +382,20 @@ public class UIPanelCustomization : MonoBehaviour
         buttonColor.gameObject.SetActive(false);
 	}
 
+	void ButtonLineUpdate()
+	{
+		if (spawnedLine == null)
+		{
+			spawnedLine = Instantiate(prefabLine, prefab.transform.position, prefab.transform.rotation);
+		}
+
+		else
+		{
+			spawnedLine.transform.position = prefab.transform.position;
+			spawnedLine.transform.rotation = prefab.transform.rotation;
+		}
+	}
+
     void DropdownUpdate(TMP_Dropdown change)
     {
         prefab.GetComponent<MeshMaker>().polygon = change.value;
@@ -378,7 +403,7 @@ public class UIPanelCustomization : MonoBehaviour
 
 		int poly = prefab.GetComponent<MeshMaker>().polygon;
 
-		if(poly == 0 || poly == 2)
+		if(poly == 2)
 		{
 			float radius = prefab.GetComponent<MeshMaker>().radius;
 			prefab.transform.localScale = new Vector3(radius, radius, radius);

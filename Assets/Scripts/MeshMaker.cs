@@ -7,7 +7,7 @@ public class MeshMaker : MonoBehaviour
 {
     public enum Polygons {Cubo, Ortoedro, Esfera, Cone, Cilindro, Piramide, Prisma};
 
-    public int polygon = (int) Polygons.Ortoedro;
+    public int polygon;
 
     public int nSides;
 
@@ -15,10 +15,11 @@ public class MeshMaker : MonoBehaviour
 
     public float radius;
 
-    Mesh mesh;
+    public List<Vector3> vertices;
 
-    List<Vector3> vertices;
     List<int> triangles;
+
+    private Mesh mesh;
 
     void Awake()
     {
@@ -36,10 +37,8 @@ public class MeshMaker : MonoBehaviour
         switch(polygon)
         {
             case (int) Polygons.Cubo:
-				GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-				vertices.AddRange(cube.GetComponent<MeshFilter>().mesh.vertices);
-				triangles.AddRange(cube.GetComponent<MeshFilter>().mesh.triangles);
-				Destroy(cube);
+                cylinder = new CylinderMesh(4, radius, radius);
+                cylinder.MakeCylinder(vertices, triangles);
             break;
 
 			case (int) Polygons.Ortoedro:

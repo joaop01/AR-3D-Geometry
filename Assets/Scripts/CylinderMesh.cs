@@ -14,7 +14,7 @@ public class CylinderMesh
     {
         this.nSides = nSides;
         this.height = height;
-        this.sideLength = sideLength;
+        this.sideLength = sideLength/Mathf.Sqrt(2);
     }
 
     void setVertices()

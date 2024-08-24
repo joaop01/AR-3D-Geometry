@@ -97,10 +97,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d0af546e7ddf941a85a35fdad53bc50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  polygon: 1
+  polygon: 0
   nSides: 3
   height: 0.05
   radius: 0.05
+  vertices: []
 --- !u!114 &-9157414481335134745
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,12 +114,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2889655e1cd44ff1a36f3915af34287, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefabLine: {fileID: 1042726944994379597, guid: 24a566e3e7d6538fd83d3626717597b2,
+    type: 3}
   rotMinValue: 0
   rotMaxValue: 360
   translationMinValue: 0
-  translationMaxValue: 1
-  scaleMinValue: 1
-  scaleMaxValue: 5
+  translationMaxValue: 0.3
   sidesMinValue: 3
   sidesMaxValue: 10
   heightMinValue: 0.05
