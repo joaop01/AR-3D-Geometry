@@ -5,9 +5,6 @@ using TMPro;
 
 public class UIPanelCustomization : MonoBehaviour
 {
-    public GameObject prefabLine;
-    public GameObject spawnedLine;
-
 	private float lastRotationX;
 	private float lastRotationZ;
 
@@ -53,6 +50,8 @@ public class UIPanelCustomization : MonoBehaviour
     private TMP_Text textG;
     private TMP_Text textB;
 
+	private Toggle diagonalToggle;
+
     private Button hide;
     private Button buttonTransform;
     private Button buttonCustom;
@@ -61,6 +60,10 @@ public class UIPanelCustomization : MonoBehaviour
 
     private GameObject prefab;
     private GameObject panel;
+    public GameObject prefabLine;
+    public GameObject spawnedLine;
+
+	private Renderer rend;
 	public Material opaque;
 	public Material transparent;
 
@@ -69,6 +72,8 @@ public class UIPanelCustomization : MonoBehaviour
         panel = GameObject.Find("XR Origin (AR Rig)").GetComponent<PlaceObject>().panel;
 
         prefab = GameObject.Find("XR Origin (AR Rig)").GetComponent<PlaceObject>().spawnedObject;
+
+		rend = prefab.GetComponent<Renderer>();
 
         buttonTransform = GameObject.Find("ButtonTransform").GetComponent<Button>();
         buttonTransform.onClick.AddListener(ButtonTransformUpdate);
@@ -144,7 +149,7 @@ public class UIPanelCustomization : MonoBehaviour
 					heightSlider.onValueChanged.AddListener(HeightSliderUpdate);
 					textHeight = GameObject.Find("TextHeightValue").GetComponent<TextMeshProUGUI>();
 					int intHeight = (int)(100*prefab.GetComponent<MeshMaker>().height);
-					textHeight.text = (string)intHeight.ToString("n2")+" cm";
+					textHeight.text = (string)intHeight.ToString()+" cm";
 				}
 
 				radiusSlider = GameObject.Find("RadiusSlider").GetComponent<Slider>();
@@ -154,7 +159,7 @@ public class UIPanelCustomization : MonoBehaviour
 				radiusSlider.onValueChanged.AddListener(RadiusSliderUpdate);
 				textRadius = GameObject.Find("TextRadiusValue").GetComponent<TextMeshProUGUI>();
 				int intRadius = (int)(100*prefab.GetComponent<MeshMaker>().radius);
-				textRadius.text = (string)intRadius.ToString("n2")+" cm";
+				textRadius.text = (string)intRadius.ToString()+" cm";
 
 				drop = GameObject.Find("PolyDropdown").GetComponent<TMP_Dropdown>();
 				drop.value = prefab.GetComponent<MeshMaker>().polygon;
@@ -163,8 +168,6 @@ public class UIPanelCustomization : MonoBehaviour
 
 			if (panel.transform.GetChild(2).gameObject.activeSelf)
 			{
-
-				Renderer rend = prefab.GetComponent<Renderer>();
 				Color cor = rend.material.color;
 
 				transparencySlider = GameObject.Find("TransparencySlider").GetComponent<Slider>();
@@ -200,6 +203,12 @@ public class UIPanelCustomization : MonoBehaviour
 				textB.text = (string)bSlider.value.ToString("n2");
 			}
 
+			if (panel.transform.GetChild(3).gameObject.activeSelf)
+			{
+				diagonalToggle = GameObject.Find("DiagonalToggle").GetComponent<Toggle>();
+				diagonalToggle.onValueChanged.AddListener(DiagonalToggleUpdate);
+			}
+
             hide = GameObject.Find("ButtonHide").GetComponent<Button>();
             hide.onClick.AddListener(HideUpdate);
         }
@@ -212,12 +221,16 @@ public class UIPanelCustomization : MonoBehaviour
         prefab.transform.RotateAround(position, new Vector3(1,0,0), rotationValue);
         lastRotationX = value;
 		textRotationX.text = (string)value.ToString()+" º";
+		if (diagonalToggle == null) DiagonalToggleUpdate(false);
+		else DiagonalToggleUpdate(diagonalToggle.isOn);
     }
 
     void RotationYSliderUpdate(float value)
 	{
 		transform.localEulerAngles = new Vector3(transform.rotation.x, value, transform.rotation.z);
 		textRotationY.text = (string)value.ToString()+" º";
+		if (diagonalToggle == null) DiagonalToggleUpdate(false);
+		else DiagonalToggleUpdate(diagonalToggle.isOn);
 	}
 
     void RotationZSliderUpdate(float value)
@@ -227,6 +240,8 @@ public class UIPanelCustomization : MonoBehaviour
         prefab.transform.RotateAround(position, new Vector3(0,0,1), rotationValue);
         lastRotationZ = value;
 		textRotationZ.text = (string)value.ToString()+" º";
+		if (diagonalToggle == null) DiagonalToggleUpdate(false);
+		else DiagonalToggleUpdate(diagonalToggle.isOn);
     }
 
 	void TranslationYSliderUpdate(float value)
@@ -234,6 +249,8 @@ public class UIPanelCustomization : MonoBehaviour
         prefab.transform.position = new Vector3(prefab.transform.position.x, value, prefab.transform.position.z);
 		int intHeight = (int)(100*value);
 		textTranslationY.text = (string)intHeight.ToString("n2")+" cm";
+		if (diagonalToggle == null) DiagonalToggleUpdate(false);
+		else DiagonalToggleUpdate(diagonalToggle.isOn);
 	}
 
     void SidesSliderUpdate(float value)
@@ -268,8 +285,6 @@ public class UIPanelCustomization : MonoBehaviour
 
 	void TransparencySliderUpdate(float value)
 	{
-		Renderer rend = prefab.GetComponent<Renderer>();
-
 		Color cor = rend.material.color;
 
 		if(rend.material.color.a > 0.92f) rend.material = opaque;
@@ -283,8 +298,6 @@ public class UIPanelCustomization : MonoBehaviour
 
 	void RSliderUpdate(float value)
 	{
-		Renderer rend = prefab.GetComponent<Renderer>();
-
 		Color cor = rend.material.color;
 
 		rend.material.color = new Color(value, cor.g, cor.b, cor.a);
@@ -294,8 +307,6 @@ public class UIPanelCustomization : MonoBehaviour
 
 	void GSliderUpdate(float value)
 	{
-		Renderer rend = prefab.GetComponent<Renderer>();
-
 		Color cor = rend.material.color;
 
 		rend.material.color = new Color(cor.r, value, cor.b, cor.a);
@@ -305,13 +316,28 @@ public class UIPanelCustomization : MonoBehaviour
 
 	void BSliderUpdate(float value)
 	{
-		Renderer rend = prefab.GetComponent<Renderer>();
-
 		Color cor = rend.material.color;
 
 		rend.material.color = new Color(cor.r, cor.g, value, cor.a);
 
 		textB.text = (string)bSlider.value.ToString("n2");
+	}
+
+	void DiagonalToggleUpdate(bool value)
+	{
+		int poly = prefab.GetComponent<MeshMaker>().polygon;
+
+		if(value && ((poly == 0 || poly == 1 || poly == 3 || poly == 5)))
+		{
+			if(spawnedLine == null) spawnedLine = Instantiate(prefabLine, prefab.transform.position, prefab.transform.rotation);
+			else
+			{
+				spawnedLine.transform.position = prefab.transform.position;
+				spawnedLine.transform.rotation = prefab.transform.rotation;
+			}
+		}
+
+		else Destroy(spawnedLine);
 	}
 
     void HideUpdate()
@@ -320,9 +346,11 @@ public class UIPanelCustomization : MonoBehaviour
         panel.transform.GetChild(0).gameObject.SetActive(false);
         panel.transform.GetChild(1).gameObject.SetActive(false);
         panel.transform.GetChild(2).gameObject.SetActive(false);
+        panel.transform.GetChild(3).gameObject.SetActive(false);
         buttonCustom.gameObject.SetActive(true);
         buttonTransform.gameObject.SetActive(true);
         buttonColor.gameObject.SetActive(true);
+        buttonLine.gameObject.SetActive(true);
     }
 
     void ButtonTransformUpdate()
@@ -333,6 +361,7 @@ public class UIPanelCustomization : MonoBehaviour
         buttonTransform.gameObject.SetActive(false);
         buttonCustom.gameObject.SetActive(false);
         buttonColor.gameObject.SetActive(false);
+        buttonLine.gameObject.SetActive(false);
     }
 
     void ButtonCustomUpdate()
@@ -370,6 +399,7 @@ public class UIPanelCustomization : MonoBehaviour
         buttonTransform.gameObject.SetActive(false);
         buttonCustom.gameObject.SetActive(false);
         buttonColor.gameObject.SetActive(false);
+        buttonLine.gameObject.SetActive(false);
     }
 
 	void ButtonColorUpdate()
@@ -380,20 +410,18 @@ public class UIPanelCustomization : MonoBehaviour
         buttonTransform.gameObject.SetActive(false);
         buttonCustom.gameObject.SetActive(false);
         buttonColor.gameObject.SetActive(false);
+        buttonLine.gameObject.SetActive(false);
 	}
 
 	void ButtonLineUpdate()
 	{
-		if (spawnedLine == null)
-		{
-			spawnedLine = Instantiate(prefabLine, prefab.transform.position, prefab.transform.rotation);
-		}
-
-		else
-		{
-			spawnedLine.transform.position = prefab.transform.position;
-			spawnedLine.transform.rotation = prefab.transform.rotation;
-		}
+        panel.gameObject.SetActive(true);
+        panel.transform.GetChild(3).gameObject.SetActive(true);
+        PanelUpdate();
+        buttonTransform.gameObject.SetActive(false);
+        buttonCustom.gameObject.SetActive(false);
+        buttonColor.gameObject.SetActive(false);
+        buttonLine.gameObject.SetActive(false);
 	}
 
     void DropdownUpdate(TMP_Dropdown change)
@@ -402,6 +430,9 @@ public class UIPanelCustomization : MonoBehaviour
         prefab.GetComponent<MeshMaker>().Start();
 
 		int poly = prefab.GetComponent<MeshMaker>().polygon;
+
+		Destroy(spawnedLine);
+		diagonalToggle.isOn = false;
 
 		if(poly == 2)
 		{

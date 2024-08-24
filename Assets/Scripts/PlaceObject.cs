@@ -71,6 +71,7 @@ public class PlaceObject : MonoBehaviour
         panel.transform.GetChild(0).gameObject.SetActive(false);
         panel.transform.GetChild(1).gameObject.SetActive(false);
         panel.transform.GetChild(2).gameObject.SetActive(false);
+        panel.transform.GetChild(3).gameObject.SetActive(false);
 
         buttonCustom = GameObject.Find("ButtonCustom");
 
@@ -120,11 +121,15 @@ public class PlaceObject : MonoBehaviour
 
             else
 			{
-				if (panel.gameObject.activeSelf && panel.transform.GetChild(0).gameObject.activeSelf)
-					GameObject.Find("TranslationYSlider").GetComponent<Slider>().value = 0;
-
 				spawnedObject.transform.position = pose.position;
                 spawnedObject.transform.Translate(new Vector3(0, spawnedObject.GetComponent<Renderer>().bounds.min[1]*(-1), 0), Space.World);
+
+				GameObject lineObject = spawnedObject.GetComponent<UIPanelCustomization>().spawnedLine;
+				if(lineObject != null)
+				{
+					lineObject.transform.position = spawnedObject.transform.position;
+					lineObject.transform.rotation = spawnedObject.transform.rotation;
+				}
             }
         }
     }
