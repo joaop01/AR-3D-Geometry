@@ -51,6 +51,9 @@ public class UIPanelCustomization : MonoBehaviour
     private TMP_Text textB;
 
 	private Toggle diagonalToggle;
+	private Toggle volumeToggle;
+	private Toggle areaBToggle;
+	private Toggle areaLToggle;
 
     private Button hide;
     private Button buttonTransform;
@@ -207,6 +210,15 @@ public class UIPanelCustomization : MonoBehaviour
 			{
 				diagonalToggle = GameObject.Find("DiagonalToggle").GetComponent<Toggle>();
 				diagonalToggle.onValueChanged.AddListener(DiagonalToggleUpdate);
+
+				volumeToggle = GameObject.Find("VolumeToggle").GetComponent<Toggle>();
+				volumeToggle.onValueChanged.AddListener(VolumeToggleUpdate);
+
+				areaBToggle = GameObject.Find("AreaBToggle").GetComponent<Toggle>();
+				areaBToggle.onValueChanged.AddListener(AreaBToggleUpdate);
+
+				areaLToggle = GameObject.Find("AreaLToggle").GetComponent<Toggle>();
+				areaLToggle.onValueChanged.AddListener(AreaLToggleUpdate);
 			}
 
             hide = GameObject.Find("ButtonHide").GetComponent<Button>();
@@ -340,6 +352,18 @@ public class UIPanelCustomization : MonoBehaviour
 		else Destroy(spawnedLine);
 	}
 
+	void VolumeToggleUpdate(bool value)
+	{
+	}
+
+	void AreaBToggleUpdate(bool value)
+	{
+	}
+
+	void AreaLToggleUpdate(bool value)
+	{
+	}
+
     void HideUpdate()
     {
         panel.gameObject.SetActive(false);
@@ -432,7 +456,7 @@ public class UIPanelCustomization : MonoBehaviour
 		int poly = prefab.GetComponent<MeshMaker>().polygon;
 
 		Destroy(spawnedLine);
-		diagonalToggle.isOn = false;
+		if (diagonalToggle != null) diagonalToggle.isOn = false;
 
 		if(poly == 2)
 		{
