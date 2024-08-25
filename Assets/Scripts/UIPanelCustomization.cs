@@ -432,7 +432,7 @@ public class UIPanelCustomization : MonoBehaviour
 		int poly = prefab.GetComponent<MeshMaker>().polygon;
 
 		Destroy(spawnedLine);
-		diagonalToggle.isOn = false;
+		if (diagonalToggle != null) diagonalToggle.isOn = false;
 
 		if(poly == 2)
 		{
