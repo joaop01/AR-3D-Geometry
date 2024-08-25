@@ -18,8 +18,8 @@ public class GoogleSignIn : BaseServiceBootstrapper
         oidc.RedirectURI = "com.ARGeometry.AR3DGeometry:/";
 #else
         oidc.OidcProvider.ClientData = googleClientDataObjectEditorOnly.clientData;
-        oidc.RedirectURI = "https://google.com/";
-        // oidc.ServerListener.ListeningUri = "https://127.0.0.1:52229/";
+        oidc.RedirectURI = "https://google.com";
+        oidc.ServerListener.ListeningUri = "http://127.0.0.1:52229/";
 
 #endif
         ServiceManager.RegisterService(oidc);
@@ -32,6 +32,6 @@ public class GoogleSignIn : BaseServiceBootstrapper
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
