@@ -40,13 +40,6 @@ public class UIprofessor : MonoBehaviour
     void Start()
     {
         
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-		int tempVar;
-        
 		// objetos de input
         heightSlider = GameObject.Find("SliderHeight").GetComponent<Slider>();
         heightSlider.minValue = heightMinValue;
@@ -76,32 +69,33 @@ public class UIprofessor : MonoBehaviour
 
 		//output objetos de output
 		heightText = GameObject.Find("textHeight").GetComponent<TextMeshProUGUI>();
-		tempVar = (int)(height*100);
-		heightText.text = tempVar.ToString();
 
 		widthText = GameObject.Find("textWidth").GetComponent<TextMeshProUGUI>();
-		tempVar = (int)(width*100);
-		widthText.text = tempVar.ToString();
 
 		sideText = GameObject.Find("textSide").GetComponent<TextMeshProUGUI>();
-		sideText.text = sides.ToString();
+        
     }
 
 	void HeightSliderUpdate(float value){
 
 		height = value;
+		int tempVar = (int)(height*100)
+		heightText.text = tempVar.ToString();
 
 	}
 
 	void widthSliderUpdate(float value){
 
 		width = value;
+		int tempVar = (int)(width*100);
+		widthText.text = tempVar.ToString();
 
 	}
 
 	void sideSliderUpdate(float value){
 
 		sides = (int)value;
+		sideText.text = sides.ToString();
 
 	}
 
@@ -112,8 +106,6 @@ public class UIprofessor : MonoBehaviour
 	}
 
 	void sendData(){
-
-		
 
 	}
 }
