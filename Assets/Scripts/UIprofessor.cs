@@ -105,4 +105,10 @@ public class UIprofessor : MonoBehaviour
 		polygon = change.value;
 	
 	}
+
+	void enviarDados(){
+
+		
+
+	}
 }
