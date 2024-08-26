@@ -72,7 +72,7 @@ public class UIprofessor : MonoBehaviour
 		typeSelector.onValueChanged.AddListener(delegate {typeUpdate(typeSelector);});
 
 		sendButton = GameObject.Find("ButtonSend").GetComponent<Button>();
-        buttonTransform.onClick.AddListener(sendData);
+        sendButton.onClick.AddListener(sendData);
 
 		//output objetos de output
 		heightText = GameObject.Find("textHeight").GetComponent<TextMeshProUGUI>();
