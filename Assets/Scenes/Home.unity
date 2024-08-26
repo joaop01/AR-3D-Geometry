@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028359, g: 0.22571385, b: 0.30692258, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -873,6 +873,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1048899416}
   - component: {fileID: 1048899417}
+  - component: {fileID: 1048899418}
   m_Layer: 5
   m_Name: GoogleOAuth
   m_TagString: Untagged
@@ -906,13 +907,26 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1048899415}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2afea543cc9d214ea92ea986ca0b4707, type: 3}
+  m_Script: {fileID: 11500000, guid: ecabc588bf4fdde51a9c2455662517f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  googleClientDataObject: {fileID: 0}
-  googleClientDataObjectEditorOnly: {fileID: 11400000, guid: 4868a77f6d3808c478b1a9db820ee2bc,
+--- !u!114 &1048899418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1048899415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edc3d2aacaf112145b664df857bff8b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  googleClientDataObject: {fileID: 11400000, guid: 69b39f848b184ad448612f808ed09627,
+    type: 2}
+  googleClientDataObjectEditorOnly: {fileID: 11400000, guid: cbe779aa3f84dec4287040780e380d91,
     type: 2}
 --- !u!1 &1108598236
 GameObject:
@@ -1155,6 +1169,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1207706034}
   m_CullTransparentMesh: 1
+--- !u!1 &1210397431
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1210397432}
+  m_Layer: 0
+  m_Name: aluno
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1210397432
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1210397431}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 487.69916, y: 83.49268, z: 823.12805}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1322747680
 GameObject:
   m_ObjectHideFlags: 0
@@ -1289,6 +1334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d59e3faf5827407bbc48813a1afbd0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  authMan: {fileID: 0}
 --- !u!1 &1575707296
 GameObject:
   m_ObjectHideFlags: 0
@@ -1431,3 +1477,4 @@ SceneRoots:
   - {fileID: 513156986}
   - {fileID: 536153136}
   - {fileID: 1108598240}
+  - {fileID: 1210397432}
