@@ -29,6 +29,8 @@ public class UIprofessor : MonoBehaviour
 
 	private TMP_Dropdown typeSelector;
 
+	private Button sendButton;
+
 	// objetos para output
 	private TMP_Text heightText;
 	private TMP_Text widthText;
@@ -69,6 +71,9 @@ public class UIprofessor : MonoBehaviour
 
 		typeSelector.onValueChanged.AddListener(delegate {typeUpdate(typeSelector);});
 
+		sendButton = GameObject.Find("ButtonSend").GetComponent<Button>();
+        buttonTransform.onClick.AddListener(sendData);
+
 		//output objetos de output
 		heightText = GameObject.Find("textHeight").GetComponent<TextMeshProUGUI>();
 		tempVar = (int)(height*100);
@@ -106,7 +111,7 @@ public class UIprofessor : MonoBehaviour
 	
 	}
 
-	void enviarDados(){
+	void sendData(){
 
 		
 
