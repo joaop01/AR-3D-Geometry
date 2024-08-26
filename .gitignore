@@ -74,8 +74,11 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
-/[Aa]ssets/[Ss]treamingAssets
+/[Aa]ssets/[Ss]treamingAssets/*
 /[Aa]ssets/[Ss]treamingAssets.meta
+
+/[Aa]ssets/[Ss]cenes/*.meta
+/[Aa]ssets/[Ss]cripts/*.meta
 
 /[Aa]ssets/Editor Default Resources.meta
 /[Aa]ssets/Editor Default Resources/*
@@ -93,3 +96,5 @@ crashlytics-build.properties
 /[Aa]ssets/Plugins/*
 /[Aa]ssets/i5 Toolkit for Unity.meta
 /[Aa]ssets/i5 Toolkit for Unity/*
+
+ClientDataObject.asset*
