@@ -7,16 +7,34 @@ using UnityEngine.UI;
 public class SceneController : MonoBehaviour
 {
     Button aluno;
-
+    Button professor;
+    //public FireBaseAuthManager authMan;
+    
     void Start()
     {
-        aluno = GameObject.Find("ButtonAluno").GetComponent<Button>();
-        aluno.onClick.AddListener(AlunoUpdate);
+        //authMan = new FireBaseAuthManager();
+        //authMan.Start();
+        Debug.Log("start");
+        //aluno = GameObject.Find("ButtonAluno").GetComponent<Button>();
+        //aluno.onClick.AddListener(AlunoUpdate);
+        
+        //professor = GameObject.Find("ButtonProfessor").GetComponent<Button>();
+        //professor.onClick.AddListener(ProfessorUpdate);
     }
 
     void AlunoUpdate()
     {
-        SwitchScenes("RenderPolygons");
+        Debug.Log("aluno update");
+        Debug.Log("Sign in");
+        //authMan.SignIn("aluno");
+        Debug.Log("Switch");
+        //SwitchScenes("RenderPolygons");
+    }
+    
+    void ProfessorUpdate()
+    {
+        //authMan.SignIn("professor");
+        //SwitchScenes("RenderPolygons");
     }
 
     public void SwitchScenes(string sceneName)

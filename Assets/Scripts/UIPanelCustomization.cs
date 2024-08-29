@@ -1,10 +1,24 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
+
+
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+using Firebase;
+using Firebase.Database;
+
 public class UIPanelCustomization : MonoBehaviour
 {
+	//[Serializable]
+	//public class Forma{
+		//public float altura;
+		//public int forma;
+		//public int lado;
+		//public float largura;
+	//}
 	private float lastRotationX;
 	private float lastRotationZ;
 
@@ -57,6 +71,7 @@ public class UIPanelCustomization : MonoBehaviour
     private Button buttonCustom;
 	private Button buttonColor;
 	private Button buttonLine;
+	private Button buttonAtt;
 
     private GameObject prefab;
     private GameObject panel;
@@ -86,6 +101,9 @@ public class UIPanelCustomization : MonoBehaviour
 
         buttonLine = GameObject.Find("ButtonLine").GetComponent<Button>();
         buttonLine.onClick.AddListener(ButtonLineUpdate);
+        
+        buttonAtt = GameObject.Find("ButtonRefresh").GetComponent<Button>();
+        buttonAtt.onClick.AddListener(ButtonRefreshUpdate);
     }
 
     void PanelUpdate()
@@ -445,4 +463,31 @@ public class UIPanelCustomization : MonoBehaviour
 		ButtonCustomUpdate();
         PanelUpdate();
     }
+    
+    void ButtonRefreshUpdate()
+    {
+	    Debug.Log("Btn Refresh clicado");
+	    DatabaseReference reference = FirebaseDatabase.DefaultInstance.RootReference;
+	    StartCoroutine(LoadDataEnum());
+	    
+    }
+    
+    IEnumerator LoadDataEnum()
+    {
+	    //Busca o valor na referencia. Substituir por 'chaves/'+palavra_chave_inserida_na_UI quando ter um campo para coletar
+	    var data = FirebaseDatabase.DefaultInstance
+		    .GetReference("chaves/ar3d_palavra_chave")
+		    .GetValueAsync();
+
+	    yield return new WaitUntil(predicate: () => data.IsCompleted);
+	    DataSnapshot snapshot = data.Result;
+	    Debug.Log(snapshot.Child("altura").Value.ToString());
+	    
+	    prefab.GetComponent<MeshMaker>().height = (float) Convert.ToDouble(snapshot.Child("altura").Value);
+	    prefab.GetComponent<MeshMaker>().polygon = Convert.ToInt32(snapshot.Child("forma").Value);
+	    prefab.GetComponent<MeshMaker>().nSides = Convert.ToInt32(snapshot.Child("lado").Value);
+	    prefab.GetComponent<MeshMaker>().radius = (float) Convert.ToDouble(snapshot.Child("largura").Value);
+	    prefab.GetComponent<MeshMaker>().Start();
+    }
+    
 }

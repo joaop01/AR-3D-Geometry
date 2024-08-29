@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+
+
 using UnityEngine;
 
 [RequireComponent (typeof(MeshFilter), typeof(MeshRenderer))]
@@ -7,6 +9,7 @@ public class MeshMaker : MonoBehaviour
 {
     public enum Polygons {Cubo, Ortoedro, Esfera, Cone, Cilindro, Piramide, Prisma};
 
+    [System.NonSerialized]
     public int polygon;
 
     public int nSides;
@@ -25,7 +28,7 @@ public class MeshMaker : MonoBehaviour
     {
         mesh = GetComponent<MeshFilter>().mesh;
     }
-
+    
     public void Start()
     {
         vertices = new List<Vector3>();
@@ -75,6 +78,7 @@ public class MeshMaker : MonoBehaviour
         }
 
         UpdateMesh();
+
     }
 
     void UpdateMesh()
