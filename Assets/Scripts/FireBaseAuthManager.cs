@@ -31,9 +31,13 @@ public class FireBaseAuthManager : MonoBehaviour
         SignInWithGoogle();
     }
 
-    private async Task SignInWithGoogle(){
+    public async Task SignInWithGoogle()
+    {
+        Debug.Log("Iniciando login - sign in with google");
         ServiceManager.GetService<OpenIDConnectService>().LoginCompleted+= OnLoginCompleted;
+        Debug.Log("Iniciando login - pós service, awaiting");
         await ServiceManager.GetService<OpenIDConnectService>().OpenLoginPageAsync();
+        Debug.Log("Iniciando login - pós open page");
     }
 
     private void OnLoginCompleted(object sender, EventArgs e){
