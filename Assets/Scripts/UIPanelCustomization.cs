@@ -482,9 +482,11 @@ public class UIPanelCustomization : MonoBehaviour
 	    yield return new WaitUntil(predicate: () => data.IsCompleted);
 	    DataSnapshot snapshot = data.Result;
 	    Debug.Log(snapshot.Child("altura").Value.ToString());
+		Debug.Log(snapshot.ToString());
 	    
 	    prefab.GetComponent<MeshMaker>().height = (float) Convert.ToDouble(snapshot.Child("altura").Value);
 	    prefab.GetComponent<MeshMaker>().polygon = Convert.ToInt32(snapshot.Child("forma").Value);
+		Debug.Log("forma: " + Convert.ToInt32(snapshot.Child("forma").Value));
 	    prefab.GetComponent<MeshMaker>().nSides = Convert.ToInt32(snapshot.Child("lado").Value);
 	    prefab.GetComponent<MeshMaker>().radius = (float) Convert.ToDouble(snapshot.Child("largura").Value);
 	    prefab.GetComponent<MeshMaker>().Start();
