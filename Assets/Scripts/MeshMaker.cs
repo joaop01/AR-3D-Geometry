@@ -7,7 +7,8 @@ public class MeshMaker : MonoBehaviour
 {
     public enum Polygons {Cubo, Ortoedro, Esfera, Cone, Cilindro, Piramide, Prisma};
 
-    public int polygon;
+	[System.NonSerialized]
+    public int polygon = 0;
 
     public int nSides;
 

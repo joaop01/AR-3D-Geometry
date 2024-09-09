@@ -93,3 +93,5 @@ crashlytics-build.properties
 /[Aa]ssets/Plugins/*
 /[Aa]ssets/i5 Toolkit for Unity.meta
 /[Aa]ssets/i5 Toolkit for Unity/*
+
+/[Aa]ssets/ClientDataObject.asset*

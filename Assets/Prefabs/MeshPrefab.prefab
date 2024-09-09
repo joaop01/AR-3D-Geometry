@@ -114,8 +114,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2889655e1cd44ff1a36f3915af34287, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabLine: {fileID: 1042726944994379597, guid: 24a566e3e7d6538fd83d3626717597b2,
-    type: 3}
   rotMinValue: 0
   rotMaxValue: 360
   translationMinValue: 0
@@ -130,5 +128,8 @@ MonoBehaviour:
   transparencyMaxValue: 1
   rMinValue: 0
   rMaxValue: 1
+  prefabLine: {fileID: 1042726944994379597, guid: 24a566e3e7d6538fd83d3626717597b2,
+    type: 3}
+  spawnedLine: {fileID: 0}
   opaque: {fileID: 2100000, guid: 6073afd17ee5cf353956fa5473f157f0, type: 2}
   transparent: {fileID: 2100000, guid: de7e8d2edf1c07d5785d3ed1d313f816, type: 2}

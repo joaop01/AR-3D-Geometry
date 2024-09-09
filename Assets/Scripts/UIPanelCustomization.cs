@@ -70,6 +70,11 @@ public class UIPanelCustomization : MonoBehaviour
 	public Material opaque;
 	public Material transparent;
 
+	private GameObject line1;
+	private	GameObject line2;
+
+	int polygon;
+
     void Start()
     {
         panel = GameObject.Find("XR Origin (AR Rig)").GetComponent<PlaceObject>().panel;
@@ -77,6 +82,8 @@ public class UIPanelCustomization : MonoBehaviour
         prefab = GameObject.Find("XR Origin (AR Rig)").GetComponent<PlaceObject>().spawnedObject;
 
 		rend = prefab.GetComponent<Renderer>();
+
+		polygon = prefab.GetComponent<MeshMaker>().polygon;
 
         buttonTransform = GameObject.Find("ButtonTransform").GetComponent<Button>();
         buttonTransform.onClick.AddListener(ButtonTransformUpdate);
@@ -93,8 +100,6 @@ public class UIPanelCustomization : MonoBehaviour
 
     void PanelUpdate()
     {
-		int poly = prefab.GetComponent<MeshMaker>().polygon;
-
         if (panel.gameObject.activeSelf)
         {
 			if (panel.transform.GetChild(0).gameObject.activeSelf)
@@ -132,7 +137,7 @@ public class UIPanelCustomization : MonoBehaviour
 
 			if (panel.transform.GetChild(1).gameObject.activeSelf)
 			{
-				if(poly == 5 || poly == 6)
+				if(polygon == 5 || polygon == 6)
 				{
 					sidesSlider = GameObject.Find("SidesSlider").GetComponent<Slider>();
 					sidesSlider.value = prefab.GetComponent<MeshMaker>().nSides;
@@ -143,7 +148,7 @@ public class UIPanelCustomization : MonoBehaviour
 					textSides.text = (string)prefab.GetComponent<MeshMaker>().nSides.ToString();
 				}
 
-				if(poly != 0 && poly != 2)
+				if(polygon != 0 && polygon != 2)
 				{
 					heightSlider = GameObject.Find("HeightSlider").GetComponent<Slider>();
 					heightSlider.value = prefab.GetComponent<MeshMaker>().height;
@@ -282,9 +287,7 @@ public class UIPanelCustomization : MonoBehaviour
 
 	void RadiusSliderUpdate(float value)
 	{
-		int poly = prefab.GetComponent<MeshMaker>().polygon;
-
-		if(poly == 2)
+		if(polygon == 2)
 		{
 			prefab.transform.localScale = new Vector3(value, value, value);
 		}
@@ -337,15 +340,32 @@ public class UIPanelCustomization : MonoBehaviour
 
 	void DiagonalToggleUpdate(bool value)
 	{
-		int poly = prefab.GetComponent<MeshMaker>().polygon;
-
-		if(value && ((poly == 0 || poly == 1 || poly == 3 || poly == 5)))
+		if(value && (polygon == 0 || polygon == 1))
 		{
-			if(spawnedLine == null) spawnedLine = Instantiate(prefabLine, prefab.transform.position, prefab.transform.rotation);
+			if(line1 == null)
+			{
+				line1 = Instantiate(prefabLine, prefab.transform.position, prefab.transform.rotation);
+				line1.GetComponent<LineMaker>().Start();
+				line1.GetComponent<LineMaker>().DiagonalCube();
+			}
+
 			else
 			{
-				spawnedLine.transform.position = prefab.transform.position;
-				spawnedLine.transform.rotation = prefab.transform.rotation;
+				line1.transform.position = prefab.transform.position;
+				line1.transform.rotation = prefab.transform.rotation;
+			}
+
+			if(line2 == null)
+			{
+				line2 = Instantiate(prefabLine, prefab.transform.position, prefab.transform.rotation);
+				line2.GetComponent<LineMaker>().Start();
+				line2.GetComponent<LineMaker>().DiagonalSq();
+			}
+
+			else
+			{
+				line2.transform.position = prefab.transform.position;
+				line2.transform.rotation = prefab.transform.rotation;
 			}
 		}
 
@@ -390,8 +410,6 @@ public class UIPanelCustomization : MonoBehaviour
 
     void ButtonCustomUpdate()
     {
-		int poly = prefab.GetComponent<MeshMaker>().polygon;
-
         panel.gameObject.SetActive(true);
         panel.transform.GetChild(1).gameObject.SetActive(true);
 
@@ -403,18 +421,18 @@ public class UIPanelCustomization : MonoBehaviour
 
 		GameObject.Find("TextRadius").GetComponent<TextMeshProUGUI>().text = "Base";
 
-		if(poly != 5 && poly != 6)
+		if(polygon != 5 && polygon != 6)
 		{
 			custom.transform.GetChild(0).gameObject.SetActive(false);
 		}
 
-		if(poly == 0 || poly == 2)
+		if(polygon == 0 || polygon == 2)
 		{
 			custom.transform.GetChild(0).gameObject.SetActive(false);
 			custom.transform.GetChild(1).gameObject.SetActive(false);
 		}
 
-		if(poly == 2)
+		if(polygon == 2)
 		{
 			GameObject.Find("TextRadius").GetComponent<TextMeshProUGUI>().text = "Raio";
 		}
@@ -453,12 +471,10 @@ public class UIPanelCustomization : MonoBehaviour
         prefab.GetComponent<MeshMaker>().polygon = change.value;
         prefab.GetComponent<MeshMaker>().Start();
 
-		int poly = prefab.GetComponent<MeshMaker>().polygon;
-
 		Destroy(spawnedLine);
 		if (diagonalToggle != null) diagonalToggle.isOn = false;
 
-		if(poly == 2)
+		if(polygon == 2)
 		{
 			float radius = prefab.GetComponent<MeshMaker>().radius;
 			prefab.transform.localScale = new Vector3(radius, radius, radius);
