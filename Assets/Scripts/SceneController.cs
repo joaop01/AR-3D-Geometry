@@ -9,32 +9,39 @@ public class SceneController : MonoBehaviour
     Button aluno;
     Button professor;
     //public FireBaseAuthManager authMan;
+
+    private vars v;
     
     void Start()
     {
         //authMan = new FireBaseAuthManager();
         //authMan.Start();
+        v = GameObject.Find("vars").GetComponent<vars>();
         Debug.Log("start");
-        //aluno = GameObject.Find("ButtonAluno").GetComponent<Button>();
-        //aluno.onClick.AddListener(AlunoUpdate);
+        aluno = GameObject.Find("ButtonAluno").GetComponent<Button>();
+        aluno.onClick.AddListener(AlunoUpdate);
         
-        //professor = GameObject.Find("ButtonProfessor").GetComponent<Button>();
-        //professor.onClick.AddListener(ProfessorUpdate);
+        professor = GameObject.Find("ButtonProf").GetComponent<Button>();
+        professor.onClick.AddListener(ProfessorUpdate);
     }
 
     void AlunoUpdate()
     {
         Debug.Log("aluno update");
-        Debug.Log("Sign in");
+        v.tipo_user = "aluno";
+        Debug.Log("Sign in" + v.tipo_user);
         //authMan.SignIn("aluno");
         Debug.Log("Switch");
-        //SwitchScenes("RenderPolygons");
+        SwitchScenes("login");
     }
     
     void ProfessorUpdate()
     {
+        Debug.Log("professor update");
+        v.tipo_user = "professor";
+        Debug.Log("Sign in" + v.tipo_user);
         //authMan.SignIn("professor");
-        //SwitchScenes("RenderPolygons");
+        SwitchScenes("login");
     }
 
     public void SwitchScenes(string sceneName)
